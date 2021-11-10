@@ -273,12 +273,85 @@ arguments.
 The methods you request are the methods you will receive. Any attempt to call
 unknown methods will be a fatal error.
 
+# BEST PRACTICES
+
+## Don't Use Mock Objects
+
+See ["Interface Changes"](#interface-changes). However, if you're relying on sometthing you don't
+control, such as an object that requires a database connection or an internet
+connection, a mock might be acceptable.
+
+## Only Mock the Methods You Use
+
+You might be tempted to mock every single method in an interface. Don't do that.
+Only mock the methods that you actually use. That way, if the code is updated to
+call a method you didn't mock, your test with fail with a "Method not found"
+error.
+
+# LIMITATIONS
+
+Be aware that while mock objects can be useful, there are several limitations
+to be aware of.
+
+## Interface Changes
+
+In theory, objects should be open for extension, closed for modification.
+
+In practice, we have deadlines, we make mistakes, needs evolve, whatever. If
+your mock object mocks an instance of `Foo::Bar` and you install a new
+version of `Foo::Bar` with a different interface, your mock may very well
+hide the fact that your code is broken.
+
+## Encapsulation Violations
+
+Constantly you see developers do things like this:
+
+```perl
+# don't reach inside!
+my $name = $object->{name};
+```
+
+And:
+
+```
+# this should be an ->isa check
+if ( ref $object eq 'Toy::Soldier' ) {
+    ...
+}
+```
+
+Both of those will fail with `Test::Mock::Object`. This is by design to avoid
+the temptation to ignore these issues. This might mean that
+`Test::Mock::Object` is not suitable for your needs.
+
+## We Changes Instances, Not Classes
+
+Thus, if you mock an instance of a base class, subclasses won't see that (and
+other instances won't see that either). Instead, you might find [Mock::Quick](https://metacpan.org/pod/Mock%3A%3AQuick)
+useful. [Test::MockModule](https://metacpan.org/pod/Test%3A%3AMockModule) might also help, or if you just need to replace one
+or two methods in a lexical scope, see [Sub::Override](https://metacpan.org/pod/Sub%3A%3AOverride).
+
 # SEE ALSO
 
 - [Test::MockObject](https://metacpan.org/pod/Test%3A%3AMockObject)
+
+    I used this years ago when chromatic first wrote it for the company we worked
+    at. I've used it off and on over the years and I _never_ remember its
+    interace.
+
 - [Mock::Quick](https://metacpan.org/pod/Mock%3A%3AQuick)
+
+    This one is actually pretty good, but still does a bit more than I want, and
+    doesn't support method chains.
+
 - [Test::MockModule](https://metacpan.org/pod/Test%3A%3AMockModule)
+
+    Another useful module whose interface I find cumbersome.
+
 - [Test::Mock::Apache2](https://metacpan.org/pod/Test%3A%3AMock%3A%3AApache2)
+
+    This was missing some methods I needed and is what finally led me to write
+    this module.
 
 # AUTHOR
 
