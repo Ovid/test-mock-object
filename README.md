@@ -82,6 +82,19 @@ my $mock = create_mock(
 
 # FUNCTIONS
 
+These functions are exportable individually or with `::all`:
+
+```perl
+use Test::Mock::Object qw(
+  add_method
+  create_mock
+  read_only
+  reset_mocked_calls
+);
+# same as
+use Test::Mock::Object ':all';
+```
+
 ## `create_mock( package => $package, methods => \%methods )`
 
 ```perl

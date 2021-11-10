@@ -297,6 +297,18 @@ If you need something more interesting for C<isa>, pass in your own:
 
 =head1 FUNCTIONS
 
+These functions are exportable individually or with C<::all>:
+
+  use Test::Mock::Object qw(
+    add_method
+    create_mock
+    read_only
+    reset_mocked_calls
+  );
+  # same as
+  use Test::Mock::Object ':all';
+
+
 =head2 C<< create_mock( package => $package, methods => \%methods ) >>
 
   use Test::Mock::Object qw(create_mock read_only);
