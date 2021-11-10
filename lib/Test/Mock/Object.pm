@@ -530,6 +530,52 @@ other instances won't see that either). Instead, you might find L<Mock::Quick>
 useful. L<Test::MockModule> might also help, or if you just need to replace one
 or two methods in a lexical scope, see L<Sub::Override>.
 
+=head1 NOTES
+
+=head2 Memory Leak Protection
+
+If you install L<Test::LeakTrace>, a test in our test suite will verify that
+we do not have memory leaks. I've only tested this on a couple of versions of
+Perl. It's possible that some versions will leak. Please let me know if this
+happens.
+
+=head2 Chained Methods
+
+Method chains are often a code smell. You can read about
+L<The Law of Demeter|https://en.wikipedia.org/wiki/Law_of_Demeter> for more
+information. However, breaking a chain sometimes means creating a series of
+mocks for each method in the chain. So we support method chains.
+
+This I<is> a code smell. Method chains are fragile. Instead of this:
+
+    my $office = $customer->region->sales_rep->office;
+
+Consider this:
+
+    # in the Customer class
+    sub regional_office ($self) {
+        return $self->region->sales_rep->office;
+    }
+
+And then you can just call:
+
+    my $office = $customer->regional_office;
+
+If the office is then moved directly to the region instead of the
+salesperson, you can change that method to:
+
+    sub regional_office ($self) {
+        return $self->region->office;
+    }
+
+And your code doesn't break instead of hunting down all of the offending
+method chains. (Of course, you would do this in all the places where you
+need to break those chains).
+
+That being said, it's often more work than you have time for, so this module
+provides method chains. Sadly, it's again the difference between theory and
+practice.
+
 =head1 SEE ALSO
 
 =over 4

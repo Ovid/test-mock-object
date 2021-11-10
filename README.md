@@ -331,6 +331,60 @@ other instances won't see that either). Instead, you might find [Mock::Quick](ht
 useful. [Test::MockModule](https://metacpan.org/pod/Test%3A%3AMockModule) might also help, or if you just need to replace one
 or two methods in a lexical scope, see [Sub::Override](https://metacpan.org/pod/Sub%3A%3AOverride).
 
+# NOTES
+
+## Memory Leak Protection
+
+If you install [Test::LeakTrace](https://metacpan.org/pod/Test%3A%3ALeakTrace), a test in our test suite will verify that
+we do not have memory leaks. I've only tested this on a couple of versions of
+Perl. It's possible that some versions will leak. Please let me know if this
+happens.
+
+## Chained Methods
+
+Method chains are often a code smell. You can read about
+[The Law of Demeter](https://en.wikipedia.org/wiki/Law_of_Demeter) for more
+information. However, breaking a chain sometimes means creating a series of
+mocks for each method in the chain. So we support method chains.
+
+This _is_ a code smell. Method chains are fragile. Instead of this:
+
+```perl
+my $office = $customer->region->sales_rep->office;
+```
+
+Consider this:
+
+```perl
+# in the Customer class
+sub regional_office ($self) {
+    return $self->region->sales_rep->office;
+}
+```
+
+And then you can just call:
+
+```perl
+my $office = $customer->regional_office;
+```
+
+If the office is then moved directly to the region instead of the
+salesperson, you can change that method to:
+
+```perl
+sub regional_office ($self) {
+    return $self->region->office;
+}
+```
+
+And your code doesn't break instead of hunting down all of the offending
+method chains. (Of course, you would do this in all the places where you
+need to break those chains).
+
+That being said, it's often more work than you have time for, so this module
+provides method chains. Sadly, it's again the difference between theory and
+practice.
+
 # SEE ALSO
 
 - [Test::MockObject](https://metacpan.org/pod/Test%3A%3AMockObject)
