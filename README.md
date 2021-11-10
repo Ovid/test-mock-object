@@ -411,6 +411,11 @@ practice.
     This one is actually pretty good, but still does a bit more than I want, and
     doesn't support method chains.
 
+- [Test2::Tools::Mock](https://metacpan.org/pod/Test2%3A%3ATools%3A%3AMock)
+
+    This is the successor to [Mock::Quick](https://metacpan.org/pod/Mock%3A%3AQuick) and is included with [Test2](https://metacpan.org/pod/Test2). If you
+    have [Test2](https://metacpan.org/pod/Test2) installed, you don't need to install another dependency.
+
 - [Test::MockModule](https://metacpan.org/pod/Test%3A%3AMockModule)
 
     Another useful module whose interface I find cumbersome, but it uses a completely

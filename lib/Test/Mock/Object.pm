@@ -603,6 +603,11 @@ interace.
 This one is actually pretty good, but still does a bit more than I want, and
 doesn't support method chains.
 
+=item * L<Test2::Tools::Mock>
+
+This is the successor to L<Mock::Quick> and is included with L<Test2>. If you
+have L<Test2> installed, you don't need to install another dependency.
+
 =item * L<Test::MockModule>
 
 Another useful module whose interface I find cumbersome, but it uses a completely
