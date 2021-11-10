@@ -400,7 +400,8 @@ practice.
 
 - [Test::MockModule](https://metacpan.org/pod/Test%3A%3AMockModule)
 
-    Another useful module whose interface I find cumbersome.
+    Another useful module whose interface I find cumbersome, but it uses a completely
+    different approach from this module.
 
 - [Test::Mock::Apache2](https://metacpan.org/pod/Test%3A%3AMock%3A%3AApache2)
 

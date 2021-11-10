@@ -593,7 +593,8 @@ doesn't support method chains.
 
 =item * L<Test::MockModule>
 
-Another useful module whose interface I find cumbersome.
+Another useful module whose interface I find cumbersome, but it uses a completely
+different approach from this module.
 
 =item * L<Test::Mock::Apache2>
 
