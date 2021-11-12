@@ -9,7 +9,7 @@ use Scalar::Util 'blessed';
 use Exporter 'import';
 our @EXPORT_OK = qw(create_method_chain);
 
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 
 sub create_method_chain {
     my ($chain) = @_;

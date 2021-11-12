@@ -14,7 +14,7 @@ use Scalar::Util 'blessed';
 use Test::Mock::Object::Chain 'create_method_chain';
 use Exporter 'import';
 
-our $VERSION = '0.1';
+our $VERSION = '0.2';
 
 our @EXPORT_OK = qw(
   create_mock
