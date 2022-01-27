@@ -4,7 +4,7 @@ Test::Mock::Object - Dead-simple mocking
 
 # VERSION
 
-version 0.1
+version 0.2
 
 # SYNOPSIS
 
@@ -290,9 +290,9 @@ unknown methods will be a fatal error.
 
 ## Don't Use Mock Objects
 
-See ["Interface Changes"](#interface-changes). However, if you're relying on sometthing you don't
+See ["Interface Changes"](#interface-changes). However, if you're relying on something you don't
 control, such as an object that requires a database connection or an internet
-connection, a mock might be acceptable.
+connection, a mock might be useful.
 
 ## Only Mock the Methods You Use
 
@@ -404,7 +404,7 @@ practice.
 
     I used this years ago when chromatic first wrote it for the company we worked
     at. I've used it off and on over the years and I _never_ remember its
-    interace.
+    interface.
 
 - [Mock::Quick](https://metacpan.org/pod/Mock%3A%3AQuick)
 
